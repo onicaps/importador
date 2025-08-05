@@ -87,6 +87,13 @@ useEffect(() => {
     updated[index].totalKg = updated[index].weight * updated[index].qty;
     setProducts(updated);
   };
+  const updateWeight = (index, value) => {
+  const updated = [...products];
+  updated[index].weight = parseFloat(value);
+  updated[index].totalKg = updated[index].weight * updated[index].qty;
+  setProducts(updated);
+};
+
 
   const handlePasteImageOnRow = (e, index) => {
   const items = e.clipboardData?.items;
@@ -261,7 +268,15 @@ useEffect(() => {
                   <td className="border p-2">${prod.price}</td>
                   <td className="border p-2"><input type="number" value={prod.qty} onChange={e => updateQty(i, e.target.value)} className="w-16 border p-1" /></td>
                   <td className="border p-2">${totalUsd.toFixed(2)}</td>
-                  <td className="border p-2">{totalKg.toFixed(2)} kg</td>
+                  <td className="border p-2">
+  <input
+    type="number"
+    value={prod.weight}
+    onChange={(e) => updateWeight(i, e.target.value)}
+    className="w-16 border p-1"
+  />
+</td>
+
                   <td className="border p-2">{prod.details || '-'}</td>
                   <td className="border p-2"><button className="text-red-500" onClick={() => deleteProduct(i)}>X</button></td>
                 </tr>
